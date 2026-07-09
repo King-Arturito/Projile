@@ -1,9 +1,11 @@
 package io.github.kingarturito.projile.tenant;
 
 import jakarta.persistence.AttributeConverter;
+import jakarta.persistence.Converter;
 
 import java.util.UUID;
 
+@Converter(autoApply = true)
 public class TenantIdConverter implements AttributeConverter<TenantId, UUID> {
 
     @Override
