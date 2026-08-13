@@ -9,11 +9,13 @@ import io.github.kingarturito.projile.project.internal.valueobjects.MemberId;
 import io.github.kingarturito.projile.project.internal.valueobjects.converters.InvitationIdConverter;
 import io.github.kingarturito.projile.project.internal.valueobjects.converters.MemberIdConverter;
 import io.github.kingarturito.projile.user.UserId;
-import io.github.kingarturito.projile.user.UserIdConverter;
+import io.github.kingarturito.projile.user.converters.UserIdConverter;
 import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 
 import java.time.Clock;
 import java.time.Duration;
@@ -30,6 +32,7 @@ public class ProjectInvitation {
     @Column(name = "invitation_id")
     @Convert(converter = InvitationIdConverter.class)
     @EqualsAndHashCode.Include
+    @JdbcTypeCode(SqlTypes.UUID)
     private final InvitationId invitationId = new InvitationId(UuidCreator.getTimeOrderedEpoch());
 
     @Column(name = "project_id", nullable = false)

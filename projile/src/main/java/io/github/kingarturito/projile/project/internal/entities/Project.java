@@ -14,6 +14,8 @@ import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 
 import java.time.Clock;
 import java.time.Instant;
@@ -29,6 +31,7 @@ public class Project {
     @Column(name = "project_id")
     @Convert(converter = ProjectIdConverter.class)
     @EqualsAndHashCode.Include
+    @JdbcTypeCode(SqlTypes.UUID)
     private ProjectId projectId = new ProjectId(UuidCreator.getTimeOrderedEpoch());
 
     @Column(name =  "tenant_id", nullable = false)

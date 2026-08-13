@@ -7,11 +7,13 @@ import io.github.kingarturito.projile.project.internal.valueobjects.converters.M
 import io.github.kingarturito.projile.project.ProjectId;
 import io.github.kingarturito.projile.project.ProjectIdConverter;
 import io.github.kingarturito.projile.user.UserId;
-import io.github.kingarturito.projile.user.UserIdConverter;
+import io.github.kingarturito.projile.user.converters.UserIdConverter;
 import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 
 import java.time.Clock;
 import java.time.Instant;
@@ -27,6 +29,7 @@ public class ProjectMember {
     @Column(name = "member_id")
     @Convert(converter = MemberIdConverter.class)
     @EqualsAndHashCode.Include
+    @JdbcTypeCode(SqlTypes.UUID)
     private MemberId memberId = new MemberId(UuidCreator.getTimeOrderedEpoch());
 
     @Column(name = "project_id", nullable = false)
@@ -48,15 +51,19 @@ public class ProjectMember {
     @Convert(converter = MemberIdConverter.class)
     private MemberId invitedBy;
 
+    @Column(name = "invitation_message", nullable = true, length = 255)
+    private String invitationMessage;
+
     private ProjectMember(ProjectId projectId, UserId userId, ProjectRole projectRole) {
         this.projectId = projectId;
         this.userId = userId;
         this.projectRole = projectRole;
     }
 
-    public static ProjectMember addMember(ProjectId projectId, UserId userId, ProjectRole projectRole, MemberId invitedBy, Clock clock) {
+    public static ProjectMember addMember(ProjectId projectId, UserId userId, ProjectRole projectRole, MemberId invitedBy, String invitationMessage, Clock clock) {
         ProjectMember projectMember = new ProjectMember(projectId, userId, projectRole);
         projectMember.joinedAt = Instant.now(clock);
+        projectMember.invitationMessage =  invitationMessage;
         projectMember.invitedBy = invitedBy;
         return projectMember;
     }

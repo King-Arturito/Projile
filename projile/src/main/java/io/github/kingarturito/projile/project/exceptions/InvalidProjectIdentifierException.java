@@ -1,6 +1,6 @@
 package io.github.kingarturito.projile.project.exceptions;
 
-import io.github.kingarturito.projile.shared.BadRequestException;
+import io.github.kingarturito.projile.shared.exceptions.BadRequestException;
 
 public class InvalidProjectIdentifierException extends BadRequestException {
     public InvalidProjectIdentifierException(String message) {

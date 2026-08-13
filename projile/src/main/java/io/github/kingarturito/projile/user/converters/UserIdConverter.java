@@ -1,4 +1,5 @@
-package io.github.kingarturito.projile.user;
+package io.github.kingarturito.projile.user.converters;
+import io.github.kingarturito.projile.user.UserId;
 import jakarta.persistence.AttributeConverter;
 import jakarta.persistence.Converter;
 
