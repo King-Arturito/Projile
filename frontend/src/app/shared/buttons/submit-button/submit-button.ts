@@ -8,4 +8,6 @@ import { MatButtonModule } from '@angular/material/button';
   changeDetection: ChangeDetectionStrategy.Eager,
   standalone: true,
 })
-export class SubmitButton {}
+export class SubmitButton {
+
+}
