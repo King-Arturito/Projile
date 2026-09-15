@@ -1,0 +1,18 @@
+<p>user-component works!</p>
+
+
+<div class = "user-search">
+  <input #usernameInput type="text" placeholder="Type username"/>
+  <button (click)="searchUser(usernameInput.value)">Search</button>
+</div>
+
+@if (user()) {
+  <div class = "user-card">
+    <p>Username: {{user()!.username}}</p>
+    <p>UserId: {{user()!.userId}}</p>
+    <p>Email: {{user()!.email}}</p>
+  </div>
+} @else {
+  <p>user not found</p>
+}
+

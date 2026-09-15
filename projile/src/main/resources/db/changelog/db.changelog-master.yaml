@@ -1,0 +1,8 @@
+databaseChangeLog:
+  - includeAll:
+      path: db/changelog/schema
+      relativeToChangelogFile: false
+  - includeAll:
+      path: db/changelog/seed
+      relativeToChangelogFile: false
+      context: dev

@@ -1,9 +1,7 @@
 package io.github.kingarturito.projile.user.internal.entities;
 
-import com.github.f4b6a3.uuid.UuidCreator;
-import io.github.kingarturito.projile.user.converters.HashedPasswordConverter;
 import io.github.kingarturito.projile.user.UserId;
-import io.github.kingarturito.projile.user.converters.UserIdConverter;
+import io.github.kingarturito.projile.user.converters.HashedPasswordConverter;
 import io.github.kingarturito.projile.user.converters.UsernameConverter;
 import io.github.kingarturito.projile.user.internal.valueobjects.HashedPassword;
 import io.github.kingarturito.projile.user.internal.valueobjects.Username;
@@ -11,8 +9,6 @@ import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.JdbcTypeCode;
-import org.hibernate.type.SqlTypes;
 
 @Entity
 @Getter
@@ -21,12 +17,13 @@ import org.hibernate.type.SqlTypes;
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class User {
 
-    @Id
-    @Convert(converter = UserIdConverter.class)
-    @JdbcTypeCode(SqlTypes.UUID)
+    @EmbeddedId
     @EqualsAndHashCode.Include
-    @Column(name = "user_id")
-    private UserId userId = new UserId(UuidCreator.getTimeOrderedEpoch());
+    @AttributeOverride(
+            name = "userId",
+            column = @Column(name = "user_id", nullable = false, columnDefinition = "uuid")
+    )
+    private UserId userId = UserId.newId();
 
     @Column(name = "username", unique = true, nullable = false)
     @Convert(converter = UsernameConverter.class)
@@ -36,7 +33,7 @@ public class User {
     private String userEmail;
 
     @Convert(converter = HashedPasswordConverter.class)
-    @Column(name = "hashed_password")
+    @Column(name = "hashed_password", nullable = false)
     private HashedPassword password;
 
     private User(String email, HashedPassword password, Username username) {

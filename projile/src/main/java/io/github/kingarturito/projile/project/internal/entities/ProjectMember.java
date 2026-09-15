@@ -1,19 +1,13 @@
 package io.github.kingarturito.projile.project.internal.entities;
 
-import com.github.f4b6a3.uuid.UuidCreator;
+import io.github.kingarturito.projile.project.ProjectId;
 import io.github.kingarturito.projile.project.internal.enums.ProjectRole;
 import io.github.kingarturito.projile.project.internal.valueobjects.MemberId;
-import io.github.kingarturito.projile.project.internal.valueobjects.converters.MemberIdConverter;
-import io.github.kingarturito.projile.project.ProjectId;
-import io.github.kingarturito.projile.project.ProjectIdConverter;
 import io.github.kingarturito.projile.user.UserId;
-import io.github.kingarturito.projile.user.converters.UserIdConverter;
 import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.JdbcTypeCode;
-import org.hibernate.type.SqlTypes;
 
 import java.time.Clock;
 import java.time.Instant;
@@ -25,33 +19,45 @@ import java.time.Instant;
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Getter
 public class ProjectMember {
-    @Id
-    @Column(name = "member_id")
-    @Convert(converter = MemberIdConverter.class)
-    @EqualsAndHashCode.Include
-    @JdbcTypeCode(SqlTypes.UUID)
-    private MemberId memberId = new MemberId(UuidCreator.getTimeOrderedEpoch());
 
-    @Column(name = "project_id", nullable = false)
-    @Convert(converter = ProjectIdConverter.class)
+    @EmbeddedId
+    @EqualsAndHashCode.Include
+    @AttributeOverride(
+            name = "memberId",
+            column = @Column(name = "member_id", nullable = false, columnDefinition = "uuid")
+    )
+    private MemberId memberId = MemberId.newId();
+
+
+    @Embedded
+    @AttributeOverride(
+            name = "projectId",
+            column = @Column(name = "project_id", nullable = false, columnDefinition = "uuid")
+    )
     private ProjectId projectId;
 
-    @Column(name = "user_id", nullable = false)
-    @Convert(converter = UserIdConverter.class)
+    @Embedded
+    @AttributeOverride(
+            name = "userId",
+            column = @Column(name = "user_id", nullable = false, columnDefinition = "uuid")
+    )
     private UserId userId;
 
     @Column(name = "project_role")
     @Enumerated(EnumType.STRING)
     private ProjectRole projectRole;
 
-    @Column(name = "joined_at")
+    @Column(name = "joined_at", nullable = false)
     private Instant joinedAt;
 
-    @Column(name = "invited_by")
-    @Convert(converter = MemberIdConverter.class)
+    @Embedded
+    @AttributeOverride(
+            name = "memberId",
+            column = @Column(name = "invited_by", nullable = false, columnDefinition = "uuid")
+    )
     private MemberId invitedBy;
 
-    @Column(name = "invitation_message", nullable = true, length = 255)
+    @Column(name = "invitation_message", nullable = true, length = 1000)
     private String invitationMessage;
 
     private ProjectMember(ProjectId projectId, UserId userId, ProjectRole projectRole) {

@@ -1,41 +1,38 @@
 package io.github.kingarturito.projile.project.internal.entities;
 
-import com.github.f4b6a3.uuid.UuidCreator;
 import io.github.kingarturito.projile.project.ProjectId;
-import io.github.kingarturito.projile.project.ProjectIdConverter;
 import io.github.kingarturito.projile.project.internal.enums.ProjectStatus;
 import io.github.kingarturito.projile.project.internal.valueobjects.ProjectIdentifier;
 import io.github.kingarturito.projile.project.internal.valueobjects.converters.ProjectIdentifierConverter;
 import io.github.kingarturito.projile.shared.Description;
 import io.github.kingarturito.projile.shared.DescriptionConverter;
 import io.github.kingarturito.projile.tenant.TenantId;
-import io.github.kingarturito.projile.tenant.TenantIdConverter;
 import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.JdbcTypeCode;
-import org.hibernate.type.SqlTypes;
 
 import java.time.Clock;
 import java.time.Instant;
 
 @Entity
-@Table(name = "project")
+@Table(name = "project", uniqueConstraints = @UniqueConstraint(columnNames = {"tenant_id", "project_identifier"}))
 @NoArgsConstructor(access = lombok.AccessLevel.PROTECTED)
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Getter
 public class Project {
 
-    @Id
-    @Column(name = "project_id")
-    @Convert(converter = ProjectIdConverter.class)
+    @EmbeddedId
+    @AttributeOverride(
+            name = "projectId",
+            column = @Column(name = "project_id", columnDefinition = "uuid", nullable = false))
     @EqualsAndHashCode.Include
-    @JdbcTypeCode(SqlTypes.UUID)
-    private ProjectId projectId = new ProjectId(UuidCreator.getTimeOrderedEpoch());
+    private ProjectId projectId = ProjectId.newId();
 
-    @Column(name =  "tenant_id", nullable = false)
-    @Convert(converter = TenantIdConverter.class)
+    @Embedded
+    @AttributeOverride(
+            name = "tenantId",
+            column = @Column(name =  "tenant_id", nullable = false, columnDefinition = "uuid"))
     private TenantId tenantId;
 
     @Column(name =  "project_name", nullable = false)
@@ -45,7 +42,7 @@ public class Project {
     @Convert(converter = DescriptionConverter.class)
     private Description projectDescription;
 
-    @Column(name = "project_identifier", unique = true, nullable = false, length = 10)
+    @Column(name = "project_identifier", nullable = false, length = 10)
     @Convert(converter =  ProjectIdentifierConverter.class)
     private ProjectIdentifier projectIdentifier;
 

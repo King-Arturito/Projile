@@ -1,21 +1,14 @@
 package io.github.kingarturito.projile.project.internal.entities;
 
-import com.github.f4b6a3.uuid.UuidCreator;
 import io.github.kingarturito.projile.project.ProjectId;
-import io.github.kingarturito.projile.project.ProjectIdConverter;
 import io.github.kingarturito.projile.project.internal.enums.InvitationStatus;
 import io.github.kingarturito.projile.project.internal.valueobjects.InvitationId;
 import io.github.kingarturito.projile.project.internal.valueobjects.MemberId;
-import io.github.kingarturito.projile.project.internal.valueobjects.converters.InvitationIdConverter;
-import io.github.kingarturito.projile.project.internal.valueobjects.converters.MemberIdConverter;
 import io.github.kingarturito.projile.user.UserId;
-import io.github.kingarturito.projile.user.converters.UserIdConverter;
 import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.JdbcTypeCode;
-import org.hibernate.type.SqlTypes;
 
 import java.time.Clock;
 import java.time.Duration;
@@ -28,23 +21,32 @@ import java.time.Instant;
 @Getter
 public class ProjectInvitation {
 
-    @Id
-    @Column(name = "invitation_id")
-    @Convert(converter = InvitationIdConverter.class)
+    @EmbeddedId
+    @AttributeOverride(
+            name = "invitationId",
+            column = @Column(name = "invitation_id", nullable = false, columnDefinition = "uuid"))
     @EqualsAndHashCode.Include
-    @JdbcTypeCode(SqlTypes.UUID)
-    private final InvitationId invitationId = new InvitationId(UuidCreator.getTimeOrderedEpoch());
+    private InvitationId invitationId = InvitationId.newId();
 
-    @Column(name = "project_id", nullable = false)
-    @Convert(converter = ProjectIdConverter.class)
+    @Embedded
+    @AttributeOverride(
+            name = "projectId",
+            column = @Column(name = "project_id", nullable = false, columnDefinition = "uuid")
+    )
     private ProjectId projectId;
 
-    @Column(name = "inviter_member_id", nullable = false)
-    @Convert(converter = MemberIdConverter.class)
+    @Embedded
+    @AttributeOverride(
+            name = "memberId",
+            column = @Column(name = "inviter_member_id", nullable = false, columnDefinition = "uuid")
+    )
     private MemberId inviterMemberId;
 
-    @Column(name = "invited_user_id", nullable = false)
-    @Convert(converter = UserIdConverter.class)
+    @Embedded
+    @AttributeOverride(
+            name = "userId",
+            column = @Column(name = "invited_user_id", nullable = false, columnDefinition = "uuid")
+    )
     private UserId invitedUserId;
 
     @Column(name  = "invited_at", nullable = false)

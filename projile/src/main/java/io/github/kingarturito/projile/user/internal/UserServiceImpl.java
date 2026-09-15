@@ -6,7 +6,6 @@ import io.github.kingarturito.projile.user.dtos.UserDto;
 import io.github.kingarturito.projile.user.internal.entities.User;
 import io.github.kingarturito.projile.user.internal.exceptions.UserNotFoundException;
 import io.github.kingarturito.projile.user.internal.repositories.UserRepository;
-import io.github.kingarturito.projile.user.internal.valueobjects.Username;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -25,14 +24,14 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDto findByUsername(String username) {
-        User user = userRepository.findByUsername(new Username(username))
+        User user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new UserNotFoundException("No user found with this username."));
         return toDto(user);
     }
 
     @Override
     public AuthenticatedUser loadAuthenticatedUser(String username) {
-        User user = userRepository.findByUsername(new Username(username))
+        User user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new UserNotFoundException("No user found with this username."));
         return toAuthRequest(user);
     }
@@ -40,7 +39,7 @@ public class UserServiceImpl implements UserService {
 
     private UserDto toDto(User user) {
         return new UserDto(
-                user.getUserId().value(),
+                user.getUserId().userId(),
                 user.getUsername().value(),
                 user.getUserEmail()
         );
@@ -48,7 +47,7 @@ public class UserServiceImpl implements UserService {
 
     private AuthenticatedUser toAuthRequest(User user) {
         return new AuthenticatedUser(
-                user.getUserId().value(),
+                user.getUserId().userId(),
                 user.getUsername().value(),
                 user.getUserEmail(),
                 user.getPassword().value()

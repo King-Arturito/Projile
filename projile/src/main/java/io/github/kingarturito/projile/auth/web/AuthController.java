@@ -22,7 +22,7 @@ public class AuthController {
     @PostMapping("/register")
     public ResponseEntity<Void>  register(@RequestBody RegisterRequest request) {
         UserId userId = userRegistrationService.register(request.email(), request.password());
-        return ResponseEntity.created(URI.create("/api/users/" + userId.value())).build();
+        return ResponseEntity.created(URI.create("/api/users/" + userId.userId())).build();
     }
 
 //    @PostMapping("/login")
