@@ -57,19 +57,15 @@ public class ProjectMember {
     )
     private MemberId invitedBy;
 
-    @Column(name = "invitation_message", nullable = true, length = 1000)
-    private String invitationMessage;
-
     private ProjectMember(ProjectId projectId, UserId userId, ProjectRole projectRole) {
         this.projectId = projectId;
         this.userId = userId;
         this.projectRole = projectRole;
     }
 
-    public static ProjectMember addMember(ProjectId projectId, UserId userId, ProjectRole projectRole, MemberId invitedBy, String invitationMessage, Clock clock) {
+    public static ProjectMember addMember(ProjectId projectId, UserId userId, ProjectRole projectRole, MemberId invitedBy, Clock clock) {
         ProjectMember projectMember = new ProjectMember(projectId, userId, projectRole);
         projectMember.joinedAt = Instant.now(clock);
-        projectMember.invitationMessage =  invitationMessage;
         projectMember.invitedBy = invitedBy;
         return projectMember;
     }

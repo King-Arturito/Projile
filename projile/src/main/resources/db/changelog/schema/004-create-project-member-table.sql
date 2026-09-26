@@ -9,7 +9,6 @@ CREATE TABLE project_member(
     project_role VARCHAR(255),
     joined_at TIMESTAMP WITH TIME ZONE NOT NULL,
     invited_by uuid,
-    invitation_message VARCHAR(1000),
 
     CHECK (project_role in ('OWNER', 'MANAGER', 'MEMBER', 'VIEWER')),
     CONSTRAINT uk_project_user UNIQUE (project_id, user_id)

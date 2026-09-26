@@ -59,10 +59,14 @@ public class ProjectInvitation {
     @Enumerated(EnumType.STRING)
     private InvitationStatus invitationStatus = InvitationStatus.PENDING;
 
-    private ProjectInvitation(MemberId inviterMemberId, UserId invitedUserId, ProjectId projectId) {
+    @Column(name = "invitation_message", nullable = true, length = 1000)
+    private String invitationMessage;
+
+    private ProjectInvitation(MemberId inviterMemberId, UserId invitedUserId, ProjectId projectId, String invitationMessage) {
         this.inviterMemberId = inviterMemberId;
         this.invitedUserId = invitedUserId;
         this.projectId = projectId;
+        this.invitationMessage = invitationMessage;
     }
 
     public boolean isExpired(Clock clock) {
@@ -70,8 +74,8 @@ public class ProjectInvitation {
                 || (invitationStatus == InvitationStatus.PENDING && expiresAt.isBefore(Instant.now(clock)));
     }
 
-    public static ProjectInvitation invite(MemberId inviterMemberId, UserId invitedUserId, ProjectId projectId, Clock clock) {
-        ProjectInvitation invitation = new ProjectInvitation(inviterMemberId, invitedUserId, projectId);
+    public static ProjectInvitation invite(MemberId inviterMemberId, UserId invitedUserId, ProjectId projectId, String invitationMessage, Clock clock) {
+        ProjectInvitation invitation = new ProjectInvitation(inviterMemberId, invitedUserId, projectId, invitationMessage);
         invitation.invitedAt = Instant.now(clock);
         invitation.expiresAt = invitation.invitedAt.plus(Duration.ofDays(7));
         return invitation;

@@ -10,6 +10,7 @@ CREATE TABLE project_invitation
     invited_at          TIMESTAMPTZ  NOT NULL,
     expires_at          TIMESTAMPTZ  NOT NULL,
     invitation_status   VARCHAR(32)  NOT NULL DEFAULT 'PENDING',
+    invitation_message VARCHAR(1000),
 
     CHECK (invitation_status in ('ACCEPTED','REJECTED', 'PENDING', 'EXPIRED', 'CANCELLED')),
     CONSTRAINT pk_project_invitation PRIMARY KEY (invitation_id)

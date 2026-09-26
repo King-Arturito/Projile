@@ -1,6 +1,7 @@
 package io.github.kingarturito.projile.auth.security;
 
 import io.github.kingarturito.projile.auth.UserPrincipalService;
+import io.github.kingarturito.projile.shared.exceptions.ErrorCode;
 import io.github.kingarturito.projile.shared.exceptions.NotFoundException;
 import io.github.kingarturito.projile.user.UserService;
 import io.github.kingarturito.projile.user.dtos.AuthenticatedUser;
@@ -49,7 +50,8 @@ public class UserPrincipalServiceTest {
                 "John@gmail.com",
                 "$argon2idk"
         );
-        when(userService.loadAuthenticatedUser(authenticatedUser.username())).thenThrow(new NotFoundException("Not found"));
+        when(userService.loadAuthenticatedUser(authenticatedUser.username()))
+                .thenThrow(new NotFoundException(ErrorCode.USER_NOT_FOUND, "Not found"));
 
         assertThrows(UsernameNotFoundException.class, ()  -> userPrincipalService.loadUserByUsername(authenticatedUser.username()));
     }

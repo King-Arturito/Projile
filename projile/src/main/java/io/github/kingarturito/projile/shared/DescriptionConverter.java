@@ -7,10 +7,11 @@ import jakarta.persistence.Converter;
 public class DescriptionConverter implements AttributeConverter<Description, String> {
     @Override
     public String convertToDatabaseColumn(Description description) {
-        return description.value();
+        return description == null ? null : description.value();
     }
 
+    @Override
     public Description convertToEntityAttribute(String description) {
-        return new Description(description);
+        return description == null ? null : new Description(description);
     }
 }
