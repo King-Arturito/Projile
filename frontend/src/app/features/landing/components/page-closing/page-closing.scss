@@ -1,0 +1,286 @@
+:host {
+  display: block;
+}
+.faq .eyebrow {
+  font-size: 7px;
+}
+.manifesto {
+  position: relative;
+  display: flex;
+  align-items: center;
+  background: #2f4b39;
+  min-height: 330px;
+  border-radius: 10px;
+  overflow: hidden;
+  padding: 48px 63px;
+  margin-bottom: 80px;
+}
+.manifesto .eyebrow {
+  font-size: 6px;
+  color: #a4b394;
+}
+.manifesto h2 {
+  color: #eff3e7;
+  font-size: 42px;
+  line-height: 1.15;
+  margin-top: 15px;
+}
+.manifesto p {
+  font-size: 11px;
+  color: #a8b79b;
+  line-height: 1.9;
+  margin: 14px 0 21px;
+}
+.manifesto .button-light {
+  min-height: 39px;
+  font-size: 10px;
+  gap: 20px;
+  padding-inline: 15px;
+}
+.manifesto-symbol {
+  position: absolute;
+  top: -53px;
+  right: 32%;
+  font-size: 160px;
+  color: #445b40;
+  line-height: 1;
+  transform: rotate(15deg);
+}
+.manifesto-art {
+  position: absolute;
+  width: 300px;
+  height: 280px;
+  right: 55px;
+  bottom: 0;
+}
+.arch {
+  position: absolute;
+  width: 164px;
+  height: 225px;
+  border-radius: 100px 100px 0 0;
+  bottom: -24px;
+}
+.arch-back {
+  background: #7d9266;
+  transform: rotate(15deg);
+  right: 13px;
+  bottom: -15px;
+}
+.arch-front {
+  background: #c3cca2;
+  right: 75px;
+  transform: rotate(-8deg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  color: #4d6644;
+}
+.arch-front > span {
+  font-family: Georgia, serif;
+  font-size: 30px;
+  font-style: italic;
+  letter-spacing: -1px;
+  line-height: 1.05;
+}
+.arch-front > i {
+  font-size: 38px;
+  font-style: normal;
+  margin-top: 10px;
+}
+.manifesto-flower {
+  position: absolute;
+  color: #debb87;
+  font-size: 95px;
+  left: 22px;
+  top: 10px;
+  transform: rotate(10deg);
+}
+.manifesto-dot {
+  position: absolute;
+  width: 38px;
+  height: 38px;
+  background: #9cac7d;
+  border-radius: 50%;
+  right: -7px;
+  top: 64px;
+}
+.faq {
+  display: grid;
+  grid-template-columns: 1fr 1.1fr;
+  gap: 70px;
+  padding-bottom: 80px;
+}
+.faq h2 {
+  font-size: 33px;
+}
+.faq > div > p {
+  font-size: 11px;
+  color: #98a38e;
+  margin-top: 16px;
+}
+.faq-items details {
+  border-bottom: 1px solid #e6eadd;
+}
+.faq-items details:first-child {
+  border-top: 1px solid #e6eadd;
+}
+.faq-items summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  font-size: 12px;
+  color: #65785a;
+  cursor: pointer;
+  padding: 21px 0;
+  list-style: none;
+}
+.faq-items summary::-webkit-details-marker {
+  display: none;
+}
+.faq-items summary app-icon {
+  color: #a3ae94;
+  font-size: 13px;
+  transition: transform 0.2s;
+}
+.faq-items details[open] app-icon {
+  transform: rotate(45deg);
+}
+.faq-items p {
+  font-size: 11px;
+  line-height: 1.85;
+  color: #748267;
+  margin: -4px 22px 20px 0;
+}
+.site-footer {
+  background: #f8f9f4;
+  border-top: 1px solid #e9eddf;
+}
+.footer-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 30px;
+  padding-block: 30px;
+}
+.site-footer .wordmark {
+  font-size: 23px;
+}
+.site-footer .wordmark svg {
+  height: 23px;
+  width: 23px;
+}
+.site-footer p {
+  font-size: 9px;
+  color: #a0a98f;
+  margin: 8px 0 0;
+}
+.site-footer nav {
+  display: flex;
+  gap: 28px;
+  font-size: 9px;
+  color: #8c9a7d;
+}
+.site-footer nav a:hover {
+  color: #34533a;
+}
+.copyright {
+  font-size: 8px;
+  color: #abb49e;
+}
+@media (max-width: 1100px) {
+  .manifesto-art {
+    right: 25px;
+  }
+  .manifesto {
+    padding-inline: 45px;
+  }
+}
+@media (max-width: 800px) {
+  .manifesto-art {
+    scale: 0.8;
+    transform-origin: right bottom;
+    right: 10px;
+  }
+  .manifesto {
+    padding: 40px 35px;
+  }
+  .manifesto h2 {
+    font-size: 34px;
+  }
+  .manifesto-symbol {
+    right: 25%;
+  }
+  .faq {
+    gap: 35px;
+  }
+  .faq h2 {
+    font-size: 29px;
+  }
+  .site-footer nav {
+    gap: 15px;
+  }
+  .copyright {
+    max-width: 100px;
+    line-height: 1.8;
+  }
+}
+@media (max-width: 600px) {
+  .manifesto {
+    padding: 35px 27px 195px;
+    min-height: 0;
+    margin-bottom: 51px;
+  }
+  .manifesto h2 {
+    font-size: 33px;
+  }
+  .manifesto p {
+    font-size: 11px;
+  }
+  .manifesto-art {
+    scale: 0.72;
+    right: 5px;
+  }
+  .manifesto-symbol {
+    top: -39px;
+    right: -10px;
+    font-size: 130px;
+  }
+  .manifesto > div:nth-child(2) {
+    position: relative;
+    z-index: 1;
+  }
+  .faq {
+    grid-template-columns: 1fr;
+    gap: 23px;
+    padding-bottom: 49px;
+  }
+  .faq h2 {
+    font-size: 30px;
+  }
+  .faq-items summary {
+    font-size: 12px;
+  }
+  .faq-items p {
+    font-size: 12px;
+  }
+  .footer-inner {
+    flex-wrap: wrap;
+    padding-block: 27px;
+    gap: 25px;
+  }
+  .site-footer nav {
+    flex-direction: column;
+    gap: 12px;
+    font-size: 10px;
+    text-align: right;
+  }
+  .copyright {
+    max-width: 100%;
+    width: 100%;
+    font-size: 8px;
+    padding-top: 15px;
+    border-top: 1px solid #e3e9db;
+  }
+}

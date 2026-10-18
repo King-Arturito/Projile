@@ -1,0 +1,60 @@
+<section
+  class="column"
+  [class]="'column ' + column().id"
+  [class.list-column]="listView()"
+  [attr.aria-label]="column().title"
+>
+  <div class="column-heading">
+    <span class="status-dot"></span>
+    <h4>{{ column().title }}</h4>
+    <span class="task-count">{{ column().tasks.length }}</span
+    ><button [attr.aria-label]="'Add task to ' + column().title" (click)="startAdding()">
+      <app-icon name="plus" />
+    </button>
+  </div>
+  <div
+    class="task-list"
+    cdkDropList
+    [id]="column().id"
+    [cdkDropListData]="column().tasks"
+    [cdkDropListConnectedTo]="columnIds"
+    (cdkDropListDropped)="taskDropped.emit($event)"
+  >
+    @for (task of column().tasks; track task.id) {
+      <button
+        class="task-card"
+        cdkDrag
+        [cdkDragData]="task"
+        [attr.aria-label]="'Edit task: ' + task.title"
+        (click)="taskSelected.emit(task)"
+      >
+        <app-demo-task [task]="task" [complete]="column().id === 'done'" />
+      </button>
+    }
+    @if (!column().tasks.length && !adding()) {
+      <div class="empty-column">Room for the next good thing.</div>
+    }
+  </div>
+  @if (adding()) {
+    <form class="add-form" (ngSubmit)="addTask()">
+      <textarea
+        #draftInput
+        name="taskTitle"
+        aria-label="New task title"
+        placeholder="What’s the next step?"
+        [(ngModel)]="draft"
+        maxlength="160"
+        required
+        (keydown.escape)="adding.set(false)"
+      ></textarea>
+      <div>
+        <button class="save-task" type="submit" [disabled]="!draft.trim()">Add task</button
+        ><button type="button" aria-label="Cancel adding task" (click)="adding.set(false)">
+          <app-icon name="close" />
+        </button>
+      </div>
+    </form>
+  } @else {
+    <button class="add-card" (click)="startAdding()"><app-icon name="plus" /> Add a task</button>
+  }
+</section>

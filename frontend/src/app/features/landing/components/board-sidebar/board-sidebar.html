@@ -1,0 +1,28 @@
+<aside class="board-sidebar" aria-label="Demo workspace">
+  <div class="workspace-name">
+    <span class="workspace-avatar">S</span
+    ><span>Studio workspace<small>Make good things happen.</small></span>
+  </div>
+  <div class="sidebar-label">YOUR WORKSPACE</div>
+  <div class="sidebar-selected"><app-icon name="board" /> Project boards <span>1</span></div>
+  <div class="project-name"><span></span>{{ title() }}</div>
+  <button class="new-board" (click)="newBoard.emit()">
+    <app-icon name="plus" /> Create a board
+  </button>
+  <div class="sidebar-label team-label">THE GOOD COMPANY</div>
+  @for (member of members; track member.initials) {
+    <div class="team-member">
+      <span [class]="'avatar ' + member.color">{{ member.initials }}</span
+      ><span>{{ member.name }}</span
+      ><i></i>
+    </div>
+  }
+  <div class="sidebar-note">
+    <app-icon name="leaf" /><strong>Big things.<br />Small steps.</strong
+    ><span>You’re in the right place.</span>
+  </div>
+  <div class="sidebar-bottom">
+    <span class="avatar peach">YO</span
+    ><span>Your demo workspace<small>Go on, make it yours.</small></span>
+  </div>
+</aside>

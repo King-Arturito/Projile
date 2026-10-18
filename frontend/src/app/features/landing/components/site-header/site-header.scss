@@ -1,0 +1,146 @@
+:host {
+  display: block;
+  position: sticky;
+  top: 0;
+  z-index: 20;
+}
+.skip-link {
+  position: fixed;
+  z-index: 100;
+  top: -60px;
+  left: 20px;
+  padding: 12px 20px;
+  background: #284e3c;
+  color: #fff;
+  border-radius: 5px;
+}
+.skip-link:focus {
+  top: 10px;
+}
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: #fffefaed;
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid #e4e9de;
+}
+.header-inner {
+  display: flex;
+  align-items: center;
+  gap: 48px;
+  max-width: 1320px;
+  height: 78px;
+  margin: auto;
+  padding: 0 46px;
+}
+.desktop-nav {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+.desktop-nav a {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11px;
+  color: #74806a;
+}
+.desktop-nav a:hover {
+  color: #284e3c;
+}
+.explore-link:hover {
+  color: #284e3c;
+}
+.desktop-nav app-icon {
+  font-size: 10px;
+}
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+  margin-left: auto;
+}
+.explore-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 11px;
+  color: #64745b;
+  white-space: nowrap;
+}
+.header-cta {
+  min-height: 37px;
+  font-size: 10px;
+  padding-inline: 16px;
+  gap: 20px;
+}
+.mobile-toggle {
+  display: none;
+}
+.mobile-nav {
+  display: none;
+}
+@media (max-width: 1100px) {
+  .header-inner {
+    padding-inline: 30px;
+    gap: 30px;
+  }
+  .desktop-nav {
+    gap: 20px;
+  }
+  .explore-link {
+    display: none;
+  }
+}
+@media (max-width: 800px) {
+  .header-inner {
+    height: 68px;
+    padding-inline: 24px;
+  }
+  .desktop-nav {
+    gap: 18px;
+  }
+  .desktop-nav a {
+    font-size: 10px;
+  }
+  .header-actions {
+    gap: 0;
+  }
+  .header-cta {
+    padding-inline: 12px;
+    gap: 10px;
+  }
+}
+@media (max-width: 600px) {
+  .header-inner {
+    height: 65px;
+    padding-inline: 20px;
+  }
+  .desktop-nav {
+    display: none;
+  }
+  .header-actions {
+    display: none;
+  }
+  .mobile-toggle {
+    display: grid;
+    margin-left: auto;
+    font-size: 20px;
+  }
+  .mobile-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    padding: 5px 20px 20px;
+    border-top: 1px solid #e7ecdf;
+  }
+  .mobile-nav > a {
+    padding: 14px 3px;
+    font-size: 13px;
+    color: #6b805b;
+  }
+  .mobile-nav > button {
+    margin-top: 8px;
+  }
+}

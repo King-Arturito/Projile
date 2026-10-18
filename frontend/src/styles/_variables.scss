@@ -1,3 +1,65 @@
-//global colors
+// Global design tokens (Projile).
+//
+// This file is loaded as a global stylesheet by the Angular build (see
+// `angular.json` -> `styles`) *and* importable from component styles through the
+// `src` include path:
+//
+//   @use 'styles/_variables' as *;
+//
+// Only tokens live here — no selectors, no `:root` block — so importing the file
+// from a component never duplicates global CSS.
 
-$primary_1: #12dbba;
+// --- Brand colors ---------------------------------------------------------
+
+$primary_1: #12dbba; // brand accent (teal)
+$primary_2: #0aa38b; // darker accent, for hover states
+$primary_3: #e6fbf7; // accent tint, for badges and highlights
+
+// --- Text ----------------------------------------------------------------
+
+$text_1: #0f172a; // headings
+$text_2: #475569; // body copy
+$text_3: #64748b; // muted / meta
+$text_on_accent: #04211c; // dark ink that stays readable on $primary_1
+
+// --- Surfaces & borders --------------------------------------------------
+
+$surface_1: #ffffff; // page background
+$surface_2: #f6f8fb; // alternate section background
+$surface_3: #eef2f7; // cards on top of $surface_2
+$border_1: #e2e8f0;
+
+// --- Status --------------------------------------------------------------
+
+$success: #16a34a;
+$danger: #dc2626;
+
+// --- Spacing scale (4px base) --------------------------------------------
+
+$space_1: 0.25rem;
+$space_2: 0.5rem;
+$space_3: 0.75rem;
+$space_4: 1rem;
+$space_5: 1.5rem;
+$space_6: 2rem;
+$space_7: 3rem;
+$space_8: 4rem;
+$space_9: 6rem;
+
+// --- Radius --------------------------------------------------------------
+
+$radius_sm: 6px;
+$radius_md: 10px;
+$radius_lg: 18px;
+$radius_pill: 999px;
+
+// --- Elevation -----------------------------------------------------------
+
+$shadow_1: 0 1px 2px rgba(15, 23, 42, 0.06);
+$shadow_2: 0 10px 30px rgba(15, 23, 42, 0.08);
+
+// --- Typography & layout -------------------------------------------------
+
+$font_stack: 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+$content_width: 1120px;
+$header_height: 68px;

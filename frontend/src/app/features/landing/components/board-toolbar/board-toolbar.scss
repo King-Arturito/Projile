@@ -1,0 +1,106 @@
+:host {
+  display: block;
+}
+button,
+input,
+select {
+  font: inherit;
+}
+.board-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+.board-tools {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+.board-toolbar {
+  border-bottom: 1px solid #e7ebe3;
+  margin-bottom: 17px;
+}
+.view-switch {
+  display: flex;
+  gap: 15px;
+}
+.view-switch button {
+  border: 0;
+  border-bottom: 2px solid transparent;
+  background: none;
+  color: #98a18f;
+  padding: 0 2px 11px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 9px;
+}
+.view-switch button.active {
+  border-color: #688151;
+  color: #526c40;
+}
+.board-tools {
+  margin-bottom: 10px;
+  gap: 8px;
+}
+.task-search {
+  display: flex;
+  align-items: center;
+  color: #9aa38f;
+  gap: 5px;
+}
+.task-search input {
+  background: none;
+  border: none;
+  padding: 5px 0;
+  width: 83px;
+  font-size: 9px;
+  color: #516248;
+}
+.task-search input::placeholder {
+  color: #98a18e;
+}
+.task-filter {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  font-size: 10px;
+  color: #8a967d;
+  border-left: 1px solid #e5e9df;
+  padding-left: 8px;
+}
+.task-filter select {
+  border: 0;
+  background: transparent;
+  width: 72px;
+  font-size: 8px;
+  color: #77856b;
+  cursor: pointer;
+}
+.add-task {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 8px;
+  color: #fff;
+  background: #637c4f;
+  border: 0;
+  border-radius: 4px;
+  padding: 6px 9px;
+}
+@media (max-width: 1000px) {
+  .task-search {
+    display: none;
+  }
+}
+@media (max-width: 760px) {
+  .board-toolbar {
+    gap: 5px;
+  }
+  .task-filter {
+    padding-left: 0;
+    border: 0;
+  }
+}

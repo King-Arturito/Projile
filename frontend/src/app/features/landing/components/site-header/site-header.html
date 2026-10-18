@@ -1,0 +1,45 @@
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="header-inner">
+    <a class="wordmark" href="#" aria-label="Projile home"
+      ><svg viewBox="0 0 32 34" fill="none" aria-hidden="true">
+        <path d="M5 7a4 4 0 0 1 4-4h8v19H5V7Z" fill="currentColor" />
+        <path
+          d="M20 3h4a4 4 0 0 1 4 4v10a4 4 0 0 1-4 4h-4V3ZM5 25h12v5H9a4 4 0 0 1-4-4v-1Z"
+          fill="currentColor"
+          opacity=".5"
+        /></svg
+      >projile<span class="wordmark-dot">.</span></a
+    >
+    <nav class="desktop-nav" aria-label="Main navigation">
+      <a href="#features">The good stuff <app-icon name="chevron" /></a
+      ><a href="#teams">Made for your team</a><a href="#questions">A few questions</a>
+    </nav>
+    <div class="header-actions">
+      <a href="#demo" class="explore-link">Explore the demo <app-icon name="diagonal" /></a
+      ><button class="button-primary header-cta" (click)="startBoard()">
+        Get started <app-icon name="arrow" />
+      </button>
+    </div>
+    <button
+      class="mobile-toggle icon-button"
+      [attr.aria-expanded]="menuOpen()"
+      aria-controls="mobile-nav"
+      aria-label="Toggle navigation"
+      (click)="menuOpen.set(!menuOpen())"
+    >
+      <app-icon [name]="menuOpen() ? 'close' : 'menu'" />
+    </button>
+  </div>
+  @if (menuOpen()) {
+    <nav id="mobile-nav" class="mobile-nav" aria-label="Mobile navigation">
+      <a href="#features" (click)="menuOpen.set(false)">The good stuff</a
+      ><a href="#teams" (click)="menuOpen.set(false)">Made for your team</a
+      ><a href="#questions" (click)="menuOpen.set(false)">A few questions</a
+      ><a href="#demo" (click)="menuOpen.set(false)">Explore the demo ↗</a
+      ><button class="button-primary" (click)="startBoard()">
+        Get started <app-icon name="arrow" />
+      </button>
+    </nav>
+  }
+</header>

@@ -1,0 +1,39 @@
+<div class="board-toolbar">
+  <div class="view-switch" aria-label="Board view">
+    <button
+      [class.active]="view() === 'board'"
+      [attr.aria-pressed]="view() === 'board'"
+      (click)="view.set('board')"
+    >
+      <app-icon name="board" /> Board</button
+    ><button
+      [class.active]="view() === 'list'"
+      [attr.aria-pressed]="view() === 'list'"
+      (click)="view.set('list')"
+    >
+      <app-icon name="list" /> List
+    </button>
+  </div>
+  <div class="board-tools">
+    <label class="task-search"
+      ><app-icon name="search" /><input
+        aria-label="Search demo tasks"
+        placeholder="Find a task…"
+        [ngModel]="query()"
+        (ngModelChange)="query.set($event)" /></label
+    ><label class="task-filter"
+      ><app-icon name="filter" /><select
+        aria-label="Filter tasks by label"
+        [ngModel]="filter()"
+        (ngModelChange)="filter.set($event)"
+      >
+        <option>All tasks</option>
+        @for (label of labels; track label) {
+          <option>{{ label }}</option>
+        }
+      </select></label
+    ><button class="add-task" (click)="addRequested.emit()">
+      <app-icon name="plus" /><span>Add task</span>
+    </button>
+  </div>
+</div>

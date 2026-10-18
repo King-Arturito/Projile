@@ -1,0 +1,154 @@
+<div class="demo-window">
+  <div class="window-bar">
+    <span class="window-dots" aria-hidden="true"><i></i><i></i><i></i></span
+    ><span><app-icon name="board" /> A little peek at your next project</span
+    ><span class="live-badge"><i></i> Live demo</span>
+  </div>
+  <div class="workspace">
+    <app-board-sidebar [title]="store.title()" (newBoard)="newBoard.emit()" />
+    <div class="board-main">
+      <div class="board-breadcrumb">
+        Workspace <span>/</span> Project boards <span>/</span> <b>{{ store.title() }}</b>
+      </div>
+      <div class="board-heading">
+        <div>
+          <h3>{{ store.title() }} <span>✳</span></h3>
+          <p>A fresh look. A shared goal. Let’s bring it to life.</p>
+        </div>
+        <div class="board-members" aria-label="Team members">
+          @for (member of members; track member.initials) {
+            <span [class]="'avatar ' + member.color" [title]="member.name">{{
+              member.initials
+            }}</span>
+          }
+        </div>
+      </div>
+      <app-board-toolbar
+        [view]="view()"
+        (viewChange)="view.set($event)"
+        [query]="query()"
+        (queryChange)="query.set($event)"
+        [filter]="filter()"
+        (filterChange)="filter.set($event)"
+        (addRequested)="startAdding('todo')"
+      />
+      @if ((query() || filter() !== 'All tasks') && visibleCount() === 0) {
+        <div class="no-results">
+          <app-icon name="search" />
+          <p>No tasks found. Try a little less specific.</p>
+          <button (click)="resetFilters()">Clear filters</button>
+        </div>
+      }
+      <div class="columns" [class.list-view]="view() === 'list'" cdkDropListGroup>
+        @for (column of visibleColumns(); track column.id) {
+          <app-board-column
+            [column]="column"
+            [listView]="view() === 'list'"
+            (taskSelected)="editTask($event, column.id)"
+            (taskDropped)="drop($event, column.id)"
+            (taskAdded)="resetFilters(); message.set('Task added. A little progress already.')"
+          />
+        }
+      </div>
+      <div class="board-status">
+        <button
+          class="reset-demo"
+          (click)="store.resetDemo(); resetFilters(); message.set('Sample board restored.')"
+        >
+          Reset demo</button
+        ><span
+          ><span class="status-dot"></span>{{ store.completedCount() }} of
+          {{ store.taskCount() }} tasks complete</span
+        ><span
+          ><app-icon name="check" />{{
+            store.storageAvailable()
+              ? 'Saved in this browser'
+              : 'Changes are only saved for this visit'
+          }}</span
+        >
+      </div>
+    </div>
+  </div>
+</div>
+<p class="demo-hint">
+  <app-icon name="spark" /><span
+    >This board is yours to play with. <b>Drag a card. Add an idea. See what clicks.</b></span
+  >
+</p>
+<span class="sr-only" aria-live="polite">{{ message() }}</span>
+<dialog
+  #taskDialog
+  class="app-dialog task-dialog"
+  aria-labelledby="task-heading"
+  (click)="closeOnBackdrop($event)"
+>
+  @if (editingTask; as task) {
+    <form (ngSubmit)="saveTask()">
+      <div class="dialog-topline">
+        <span><app-icon name="board" /> A LITTLE STEP FORWARD</span
+        ><button
+          class="icon-button"
+          type="button"
+          aria-label="Close task"
+          (click)="taskDialog.close()"
+        >
+          <app-icon name="close" />
+        </button>
+      </div>
+      <h2 id="task-heading">Make it happen.</h2>
+      <label for="edit-title">Task name</label
+      ><input
+        #taskTitleInput
+        id="edit-title"
+        name="title"
+        [(ngModel)]="task.title"
+        required
+        maxlength="160"
+      /><label for="edit-description">The details</label
+      ><textarea
+        id="edit-description"
+        name="description"
+        [(ngModel)]="task.description"
+        placeholder="Add a little context…"
+        rows="3"
+        maxlength="2000"
+      ></textarea>
+      <div class="dialog-fields">
+        <div>
+          <label for="edit-status">Status</label
+          ><select id="edit-status" name="status" [(ngModel)]="editingColumn">
+            @for (column of store.columns(); track column.id) {
+              <option [value]="column.id">{{ column.title }}</option>
+            }
+          </select>
+        </div>
+        <div>
+          <label for="edit-label">Label</label
+          ><select id="edit-label" name="label" [(ngModel)]="task.label">
+            @for (label of labels; track label) {
+              <option>{{ label }}</option>
+            }
+          </select>
+        </div>
+        <div>
+          <label for="edit-assignee">Assigned to</label
+          ><select id="edit-assignee" name="assignee" [(ngModel)]="task.assignee">
+            @for (member of members; track member.initials) {
+              <option [value]="member.initials">{{ member.name }}</option>
+            }
+          </select>
+        </div>
+        <div>
+          <label for="edit-date">Due date</label
+          ><input type="date" id="edit-date" name="due" [(ngModel)]="task.due" />
+        </div>
+      </div>
+      <div class="dialog-actions">
+        <button type="button" class="button-secondary" (click)="taskDialog.close()">Cancel</button
+        ><button type="submit" class="button-primary" [disabled]="!task.title.trim()">
+          Save changes <app-icon name="check" />
+        </button>
+      </div>
+    </form>
+  }
+</dialog>
