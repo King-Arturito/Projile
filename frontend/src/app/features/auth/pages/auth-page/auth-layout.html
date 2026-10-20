@@ -1,0 +1,29 @@
+<a class="skip-link" href="#auth-main">Skip to content</a>
+<div class="auth-shell">
+  <app-auth-story />
+
+  <section class="form-panel">
+    <header class="auth-header">
+      <a routerLink="/" class="mobile-wordmark">projile<span>.</span></a>
+      @if (step() === 'login') {
+        <p>
+          New around here?
+          <a routerLink="/register">Get started <span aria-hidden="true">↗</span></a>
+        </p>
+      } @else if (step() === 'register') {
+        <p>
+          Already have an account?
+          <a routerLink="/login">Log in <span aria-hidden="true">↗</span></a>
+        </p>
+      } @else {
+        <a routerLink="/" class="back-home"><app-icon name="arrow" /> Back to home</a>
+      }
+    </header>
+
+    <ng-content />
+    <footer class="auth-footer">
+      <span>A home for your next big thing.</span
+      ><a routerLink="/" fragment="demo">Take a look around <app-icon name="diagonal" /></a>
+    </footer>
+  </section>
+</div>

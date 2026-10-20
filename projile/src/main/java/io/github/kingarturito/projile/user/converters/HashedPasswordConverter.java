@@ -10,7 +10,7 @@ public class HashedPasswordConverter implements AttributeConverter<HashedPasswor
 
     @Override
     public String convertToDatabaseColumn(HashedPassword hashedPassword) {
-        return hashedPassword.value() == null ? null : hashedPassword.value();
+        return hashedPassword == null ? null : hashedPassword.value();
     }
 
     @Override

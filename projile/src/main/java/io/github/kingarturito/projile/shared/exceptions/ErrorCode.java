@@ -38,24 +38,30 @@ public enum ErrorCode {
             "Tenant slug is invalid."),
     INVALID_HASH(HttpStatus.BAD_REQUEST,
             "Password hash is invalid."),
+    INVALID_USERNAME(HttpStatus.BAD_REQUEST,
+            "Username is invalid."),
+    INVALID_PASSWORD(HttpStatus.BAD_REQUEST,
+            "Password does not meet the requirements."),
+    INVALID_EMAIL(HttpStatus.BAD_REQUEST,
+            "Email address is invalid."),
+    INVALID_DISPLAY_NAME(HttpStatus.BAD_REQUEST,
+            "Display name must contain 1-80 characters without control characters."),
+    ONBOARDING_SEQUENCE_INVALID(HttpStatus.BAD_REQUEST,
+            "Verify your email, choose a username, then choose a display name."),
 
     // 404 Not Found - the addressed resource does not exist.
     PROJECT_NOT_FOUND(HttpStatus.NOT_FOUND,
             "Project not found."),
     USER_NOT_FOUND(HttpStatus.NOT_FOUND,
             "User not found."),
-    INVALID_USERNAME(HttpStatus.NOT_FOUND,
-            "Username is invalid."),
 
     // 409 Conflict - the request clashes with the current state of the resource.
     EMAIL_ALREADY_REGISTERED(HttpStatus.CONFLICT,
             "Email is already registered."),
+    USERNAME_ALREADY_REGISTERED(HttpStatus.CONFLICT,
+            "Username is already registered."),
     USERNAME_GENERATION_FAILED(HttpStatus.CONFLICT,
-            "Unable to generate a unique username."),
-
-    // 401 Unauthorized - authentication is required or the provided credentials are rejected.
-    INVALID_PASSWORD(HttpStatus.UNAUTHORIZED,
-            "Password does not meet the requirements.");
+            "Unable to generate a unique username.");
 
     private final HttpStatus status;
     private final String defaultMessage;

@@ -6,5 +6,11 @@ public record AuthenticatedUser(
         UUID userId,
         String username,
         String email,
-        String hashedPassword
-){}
+        String hashedPassword,
+        boolean emailVerified,
+        boolean profileComplete
+) {
+    public AuthenticatedUser(UUID userId, String username, String email, String hashedPassword) {
+        this(userId, username, email, hashedPassword, true, true);
+    }
+}

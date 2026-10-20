@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, ElementRef, inject, viewChild } from '@angular/core';
+import { Router, RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { Icon } from '../../../../shared/icons/icon';
 import { SiteHeader } from '../../components/site-header/site-header';
@@ -9,13 +10,19 @@ import { BoardStore } from '../../components/demo-board/board.store';
 
 @Component({
   selector: 'app-landing-page',
-  imports: [FormsModule, Icon, DemoBoard, SiteHeader, FeatureSection, PageClosing],
+  imports: [RouterLink, FormsModule, Icon, DemoBoard, SiteHeader, FeatureSection, PageClosing],
   templateUrl: './landing-page.html',
   styleUrl: './landing-page.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true
 })
 export class LandingPage {
+  private readonly router = inject(Router);
+
+  protected register(): void {
+    void this.router.navigateByUrl('/register');
+  }
+
   protected readonly createDialog =
     viewChild.required<ElementRef<HTMLDialogElement>>('createDialog');
   protected readonly boardNameInput =

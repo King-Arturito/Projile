@@ -1,9 +1,9 @@
 package io.github.kingarturito.projile.user.internal.exceptions;
 
 import io.github.kingarturito.projile.shared.exceptions.ErrorCode;
-import io.github.kingarturito.projile.shared.exceptions.UnauthorizedException;
+import io.github.kingarturito.projile.shared.exceptions.BadRequestException;
 
-public class InvalidPasswordException extends UnauthorizedException {
+public class InvalidPasswordException extends BadRequestException {
 
     public InvalidPasswordException() {
         super(ErrorCode.INVALID_PASSWORD);

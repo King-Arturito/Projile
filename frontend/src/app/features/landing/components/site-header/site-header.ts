@@ -1,9 +1,10 @@
 import { ChangeDetectionStrategy, Component, output, signal } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { Icon } from '../../../../shared/icons/icon';
 
 @Component({
   selector: 'app-site-header',
-  imports: [Icon],
+  imports: [Icon, RouterLink],
   templateUrl: './site-header.html',
   styleUrl: './site-header.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

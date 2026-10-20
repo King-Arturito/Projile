@@ -1,11 +1,10 @@
-import {inject, Service} from '@angular/core';
-import {environment} from '../../../../environments/environment';
+import {inject, Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {UserDto} from '../models/user.dto';
-@Service()
+@Injectable({ providedIn: 'root' })
 export class UserService {
-  private readonly apiUrl = `${environment.apiUrl}/users`;
+  private readonly apiUrl = '/api/users';
   private readonly http = inject(HttpClient);
 
   findByUsername(username: string): Observable<UserDto> {

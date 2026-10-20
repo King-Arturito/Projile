@@ -16,7 +16,7 @@
       ><a href="#teams">Made for your team</a><a href="#questions">A few questions</a>
     </nav>
     <div class="header-actions">
-      <a href="#demo" class="explore-link">Explore the demo <app-icon name="diagonal" /></a
+      <a routerLink="/login" class="explore-link">Log in <app-icon name="diagonal" /></a
       ><button class="button-primary header-cta" (click)="startBoard()">
         Get started <app-icon name="arrow" />
       </button>
@@ -36,7 +36,7 @@
       <a href="#features" (click)="menuOpen.set(false)">The good stuff</a
       ><a href="#teams" (click)="menuOpen.set(false)">Made for your team</a
       ><a href="#questions" (click)="menuOpen.set(false)">A few questions</a
-      ><a href="#demo" (click)="menuOpen.set(false)">Explore the demo ↗</a
+      ><a routerLink="/login" (click)="menuOpen.set(false)">Log in ↗</a
       ><button class="button-primary" (click)="startBoard()">
         Get started <app-icon name="arrow" />
       </button>

@@ -1,4 +1,4 @@
-<app-site-header (startRequested)="startBoard()"></app-site-header>
+<app-site-header (startRequested)="register()"></app-site-header>
 <main id="main">
   <section class="hero" aria-labelledby="hero-heading">
     <div class="hero-grain" aria-hidden="true"></div>
@@ -10,8 +10,8 @@
         Bring it together with Projile. Find your team’s flow.
       </p>
       <div class="hero-actions">
-        <button class="button-primary" (click)="startBoard()">
-          Let’s get things moving <app-icon name="arrow"></app-icon></button
+        <a class="button-primary" routerLink="/register">
+          Let’s get things moving <app-icon name="arrow"></app-icon></a
         ><a class="button-text" href="#demo"
           ><span class="play-circle"><app-icon name="play"></app-icon></span> See it in action</a
         >
@@ -51,7 +51,7 @@
 
   <app-feature-section></app-feature-section>
 
-  <app-page-closing (startRequested)="startBoard()"></app-page-closing>
+  <app-page-closing (startRequested)="register()"></app-page-closing>
 </main>
 
 <dialog

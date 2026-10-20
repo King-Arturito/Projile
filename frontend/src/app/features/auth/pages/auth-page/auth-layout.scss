@@ -1,0 +1,129 @@
+:host {
+  display: block;
+}
+.skip-link {
+  position: fixed;
+  top: -60px;
+  left: 18px;
+  z-index: 10;
+  padding: 12px 18px;
+  background: #284e3c;
+  color: white;
+  border-radius: 6px;
+}
+.skip-link:focus {
+  top: 12px;
+}
+.auth-shell {
+  display: grid;
+  grid-template-columns: minmax(360px, 44%) 1fr;
+  min-height: 100dvh;
+  background: #fffefa;
+}
+.form-panel {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  padding: 39px 8%;
+}
+.auth-header {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  min-height: 36px;
+  font-size: 11px;
+  color: #68765d;
+}
+.auth-header p {
+  margin: 0;
+}
+.auth-header p > a {
+  margin-left: 8px;
+  color: #405c3b;
+  font-weight: 500;
+}
+.auth-header a:hover,
+.auth-footer a:hover {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+.back-home {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+.back-home app-icon {
+  transform: rotate(180deg);
+}
+.mobile-wordmark {
+  display: none;
+}
+.auth-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  color: #6b7c5c;
+  font-size: 9px;
+}
+.auth-footer a {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: #60784e;
+}
+@media (max-width: 1000px) {
+  .auth-shell {
+    grid-template-columns: minmax(290px, 40%) 1fr;
+  }
+  .form-panel {
+    padding-inline: 9%;
+  }
+}
+@media (max-width: 740px) {
+  .auth-shell {
+    display: block;
+  }
+  app-auth-story {
+    display: none;
+  }
+  .form-panel {
+    min-height: 100dvh;
+    padding: 25px 30px;
+  }
+  .auth-header {
+    justify-content: space-between;
+    font-size: 10px;
+    gap: 15px;
+  }
+  .auth-header p > a {
+    margin-left: 3px;
+  }
+  .mobile-wordmark {
+    display: inline;
+    color: #294d3b;
+    font-size: 25px;
+    font-weight: 650;
+    letter-spacing: -1.4px;
+  }
+  .auth-footer {
+    max-width: 440px;
+    width: 100%;
+    margin-inline: auto;
+    font-size: 8px;
+  }
+}
+@media (max-width: 380px) {
+  .form-panel {
+    padding-inline: 22px;
+  }
+  .auth-header {
+    font-size: 9px;
+  }
+  .auth-footer {
+    gap: 6px;
+  }
+}
+.mobile-wordmark > span {
+  color: #98ac84;
+}
