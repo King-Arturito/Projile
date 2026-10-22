@@ -55,4 +55,15 @@ public class UserPrincipalServiceTest {
 
         assertThrows(UsernameNotFoundException.class, ()  -> userPrincipalService.loadUserByUsername(authenticatedUser.username()));
     }
+    @Test
+    void emailCanResumeAnAccountBeforeUsernameSelection() {
+        UUID id = UUID.randomUUID();
+        when(userService.findUserByEmail("Alex@example.com"))
+                .thenReturn(new io.github.kingarturito.projile.user.dtos.UserDto(id, null, "alex@example.com", null, true, false));
+        when(userService.loadAuthenticatedUserById(id))
+                .thenReturn(new AuthenticatedUser(id, null, "alex@example.com", "$argon2id$fixture", true, false));
+        UserDetails principal = userPrincipalService.loadUserByUsername(" Alex@example.com ");
+        assertEquals("alex@example.com", principal.getUsername());
+        assertEquals(true, principal.isEnabled());
+    }
 }

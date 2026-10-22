@@ -12,12 +12,18 @@ import java.time.Duration;
 import java.util.LinkedHashMap;
 import java.util.Locale;
 import java.util.Map;
+import java.util.function.LongSupplier;
 
 /** A bounded, single-instance throttle; production clusters should share a gateway limiter. */
 final class LoginAttemptFilter extends OncePerRequestFilter {
     private static final long WINDOW_NANOS = Duration.ofMinutes(1).toNanos();
     private static final int MAX_KEYS = 10_000;
     private final Map<String, Window> windows = new LinkedHashMap<>();
+    private final LongSupplier nanoClock;
+
+    LoginAttemptFilter() { this(System::nanoTime); }
+
+    LoginAttemptFilter(LongSupplier nanoClock) { this.nanoClock = nanoClock; }
 
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) {
@@ -43,7 +49,7 @@ final class LoginAttemptFilter extends OncePerRequestFilter {
     }
 
     private synchronized boolean allow(String key, int limit) {
-        long now = System.nanoTime();
+        long now = nanoClock.getAsLong();
         Window window = windows.get(key);
         if (window == null || now - window.startedAt >= WINDOW_NANOS) {
             if (window == null && windows.size() >= MAX_KEYS) {

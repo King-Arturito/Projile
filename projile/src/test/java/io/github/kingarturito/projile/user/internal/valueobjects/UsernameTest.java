@@ -34,4 +34,11 @@ public class UsernameTest {
     void throwsIfInvalid(String username) {
         assertThatThrownBy(() -> new Username(username)).isInstanceOf(InvalidUsernameException.class);
     }
+    @Test
+    void acceptsExactLengthBoundariesAndKeepsUserChosenCase() {
+        assertThat(new Username("Alex_1").value()).isEqualTo("Alex_1");
+        assertThat(new Username("a".repeat(32)).value()).hasSize(32);
+        assertThatThrownBy(() -> new Username("a".repeat(33))).isInstanceOf(InvalidUsernameException.class);
+        assertThatThrownBy(() -> new Username("Alex Rivera")).isInstanceOf(InvalidUsernameException.class);
+    }
 }

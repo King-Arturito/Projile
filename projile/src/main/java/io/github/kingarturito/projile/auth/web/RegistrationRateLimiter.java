@@ -11,15 +11,21 @@ import java.time.Duration;
 import java.util.HashMap;
 import java.util.HexFormat;
 import java.util.Map;
+import java.util.function.LongSupplier;
 
 /** Small single-instance limiter. Use a shared gateway/store when deploying multiple replicas. */
 @Component
 public class RegistrationRateLimiter {
     private static final int MAX_KEYS = 10000;
     private final Map<String, Bucket> buckets = new HashMap<>();
+    private final LongSupplier milliClock;
+
+    public RegistrationRateLimiter() { this(System::currentTimeMillis); }
+
+    RegistrationRateLimiter(LongSupplier milliClock) { this.milliClock = milliClock; }
 
     public synchronized void check(String namespace, String identity, int maximum, Duration window) {
-        long now = System.currentTimeMillis();
+        long now = milliClock.getAsLong();
         String key = namespace + ":" + digest(identity);
         if (buckets.size() >= MAX_KEYS) {
             buckets.entrySet().removeIf(entry -> entry.getValue().until <= now);

@@ -8,13 +8,13 @@ public record DisplayName(String value) {
         if (value == null) {
             throw new InvalidDisplayNameException("Display name is required.");
         }
+        if (value.codePoints().anyMatch(DisplayName::isUnsupportedCharacter)) {
+            throw new InvalidDisplayNameException("Display name must not contain control or invisible formatting characters.");
+        }
         value = value.strip();
         int length = value.codePointCount(0, value.length());
         if (value.isBlank() || length > 80) {
             throw new InvalidDisplayNameException("Display name must contain 1-80 characters.");
-        }
-        if (value.codePoints().anyMatch(DisplayName::isUnsupportedCharacter)) {
-            throw new InvalidDisplayNameException("Display name must not contain control or invisible formatting characters.");
         }
     }
 
