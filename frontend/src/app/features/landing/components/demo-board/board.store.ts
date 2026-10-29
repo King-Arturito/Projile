@@ -215,11 +215,16 @@ export class BoardStore {
     const task = this.columns()
       .flatMap((column) => column.tasks)
       .find((item) => item.id === taskId);
+
     if (!task || !this.columns().some((column) => column.id === targetId)) return;
+
     this.columns.update((columns) =>
-      columns.map((column) => {
+      columns.map((column) =>
+      {
         const tasks = column.tasks.filter((item) => item.id !== taskId);
+
         if (column.id === targetId) tasks.splice(targetIndex ?? tasks.length, 0, task);
+
         return { ...column, tasks };
       }),
     );

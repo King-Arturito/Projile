@@ -1,12 +1,5 @@
 // Global design tokens (Projile).
-//
-// This file is loaded as a global stylesheet by the Angular build (see
-// `angular.json` -> `styles`) *and* importable from component styles through the
-// `src` include path:
-//
-//   @use 'styles/_variables' as *;
-//
-// Only tokens live here — no selectors, no `:root` block — so importing the file
+// Only tokens live here so importing the file
 // from a component never duplicates global CSS.
 
 // --- Brand colors ---------------------------------------------------------

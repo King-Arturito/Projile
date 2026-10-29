@@ -10,6 +10,11 @@ export const routes: Routes = [
     title: 'Projile — A little more together',
     loadComponent: () => import('./features/landing/pages/landing-page/landing-page').then(module => module.LandingPage),
   },
+  // {
+  //   path: "home",
+  //   title: "Home Page",
+  //   loadComponent: () => import("page here").then(module => module.Page),
+  // },
   ...[
     { path: 'login', step: 'login', title: 'Welcome back' },
     { path: 'register', step: 'register', title: 'Create your account' },
